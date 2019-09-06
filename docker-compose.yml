@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  thingsapp:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - elasticsearch
+    networks:
+      - default
+      - es
+
+  elasticsearch:
+    image: elasticsearch:7.3.1
+    environment:
+      - "discovery.type=single-node"
+    ports:
+    - 9200:9200
+    networks:
+      - es
+
+networks:
+  es:
